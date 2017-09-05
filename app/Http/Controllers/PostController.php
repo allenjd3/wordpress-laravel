@@ -7,6 +7,9 @@ use Illuminate\Http\Request;
 
 class PostController extends Controller
 {
+    public function __construct() {
+        $this->middleware('auth');
+    }
     /**
      * Display a listing of the resource.
      *
@@ -14,7 +17,8 @@ class PostController extends Controller
      */
     public function index()
     {
-        //
+        $posts = Post::where([['post_mime_type', '=', ''], ['post_type','=','post']])->get();
+        return view('post.index', compact('posts'));
     }
 
     /**
